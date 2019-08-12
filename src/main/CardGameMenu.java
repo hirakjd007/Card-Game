@@ -12,7 +12,8 @@ public class CardGameMenu {
         System.out.println("1. Start Game ");
         System.out.println("2. Shuffle cards ");
         System.out.println("3. Distribute cards ");
-        System.out.println("4. Exit ");
+        System.out.println("4. Start the game ");
+        System.out.println("5. Exit ");
 
         int value ;
         // switch case for the game menu
@@ -35,11 +36,18 @@ public class CardGameMenu {
                 case 3:
                     if(CardGameEngine.cards!=null) {
                         System.out.println("Distributing cards..........");
-                        CardGameEngine.play();
+                        CardGameEngine.distributeCards();
                     }else
                         System.out.println("Deck is empty. Please initialise the cards.");
                     break;
                 case 4:
+                    if(CardGameEngine.cards!=null) {
+                        System.out.println("Let the game begin ..........");
+                        CardGameEngine.play();
+                    }else
+                        System.out.println("Deck is empty. Please initialise the cards.");
+                    break;
+                case 5:
                     System.out.println("Thank you for playing TARGET CARD GAME. \nWe hope you liked the game !!! ");
                     System.exit(0);
                     break;

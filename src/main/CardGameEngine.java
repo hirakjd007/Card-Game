@@ -6,6 +6,7 @@ public class CardGameEngine {
     static String[] cards ;
     static  int[] scores= new int[5];
     static final int NUM=52;
+    static List<List<String>> player = new ArrayList<>();
     protected static void initialiseCards() {
         cards= new String[]{
                 "D Ace", "D 2", "D 3", "D 4", "D 5", "D 6", "D 7", "D 8", "D 9", "D 10", "D Jack", "D Queen", "D King",
@@ -36,19 +37,18 @@ public class CardGameEngine {
         }
 
     }
+protected  static void distributeCards(){
 
+    //Distributing cards ......
+    for(int i=0;i<4;i++){
+        player.add(new ArrayList<>());
+        for(int j = 0;j<5;j++)
+            player.get(i).add(cards[i+j*4]);
+    }
+    System.out.println("Cards distributed ...... ");
+}
     //called from the menu
     protected static void play() {
-
-        List<List<String>> player = new ArrayList<>();
-        //Distributing cards ......
-        for(int i=0;i<4;i++){
-            player.add(new ArrayList<>());
-            for(int j = 0;j<5;j++)
-                player.get(i).add(cards[i+j*4]);
-        }
-        System.out.println("Cards distributed ...... ");
-        System.out.println(player);
         // Now the round begins .....
         Random random = new Random();
         for(int round = 0;round< 5;round++){
