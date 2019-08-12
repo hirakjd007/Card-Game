@@ -41,11 +41,11 @@ public class CardGameMenu {
                         System.out.println("Deck is empty. Please initialise the cards.");
                     break;
                 case 4:
-                    if(CardGameEngine.cards!=null) {
+                    if(CardGameEngine.cards!=null && !CardGameEngine.player.isEmpty()) {
                         System.out.println("Let the game begin ..........");
                         CardGameEngine.play();
                     }else
-                        System.out.println("Deck is empty. Please initialise the cards.");
+                        System.out.println("Probably the deck is empty or cards have not been distributed. Please initialise the cards and distribute among the players.");
                     break;
                 case 5:
                     System.out.println("Thank you for playing TARGET CARD GAME. \nWe hope you liked the game !!! ");

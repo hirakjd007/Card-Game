@@ -37,16 +37,16 @@ public class CardGameEngine {
         }
 
     }
-protected  static void distributeCards(){
+    protected  static void distributeCards(){
 
-    //Distributing cards ......
-    for(int i=0;i<4;i++){
-        player.add(new ArrayList<>());
-        for(int j = 0;j<5;j++)
-            player.get(i).add(cards[i+j*4]);
+        //Distributing cards ......
+        for(int i=0;i<4;i++){
+            player.add(new ArrayList<>());
+            for(int j = 0;j<5;j++)
+                player.get(i).add(cards[i+j*4]);
+        }
+        System.out.println("Cards distributed ...... ");
     }
-    System.out.println("Cards distributed ...... ");
-}
     //called from the menu
     protected static void play() {
         // Now the round begins .....
@@ -55,24 +55,44 @@ protected  static void distributeCards(){
             HashMap<String,Integer> map = new LinkedHashMap<>();
             System.out.println("\n Round "+(round+1)+" begins \n Cards drawn >>>  ");
             String[] cardsDrawn = new String[4];
+            Scanner sc = new Scanner(System.in);
+
+            point:
             for(int i =0;i<4;i++){
-                int num = random.nextInt(player.get(i).size());
-                cardsDrawn[i]= player.get(i).get(num);
-                map.put(player.get(i).get(num),i);
-                System.out.println("Player "+(i+1)+" has drawn "+ player.get(i).get(num));
-                player.get(i).remove(num);
+                // Ask each player to choose a card here
+                int num=0;
+                try {
+                    System.out.println("PLAYER "+(i+1)+" please draw a card from your deck - "+ player.get(i)+" \nPlease note the number to be entered should be from 0 to "+(player.get(i).size()-1) );
+                    num = sc.nextInt();
+                    //int num = random.nextInt(player.get(i).size());
+                    if(num>player.get(i).size()) {
+                        System.out.println("\nPlease enter a valid number as suggested above.");
+                        num=sc.nextInt();
+                    }
+                    cardsDrawn[i] = player.get(i).get(num);
+                    map.put(player.get(i).get(num), i);
+                    // System.out.println("Player " + (i + 1) + " has drawn " + player.get(i).get(num));
+                    player.get(i).remove(num);
+                }catch (Exception e){
+                    System.out.println("We encountered an error. Please resume the current round. The value entered by the player is "+ num);
+                    i--;
+                    continue point;
+                }
+
             }
             //checking winner for round 1
             compileWinner(cardsDrawn);
             scores[round]=map.get(cardsDrawn[0]);
-            System.out.println("The winner of round "+round+1+" is ******** PLAYER "+ (scores[round]+1));
+            System.out.println("\nTHE WINNER OF ROUND "+(round+1)+" IS ******** PLAYER "+ (scores[round]+1));
         }
         System.out.println("------------- SCORE BOARD -------------");
         for(int i=0;i<5;i++) {
-            System.out.println("Round "+(i+1)+" -> Player "+(scores[i]+1));
+            System.out.println("Round "+(i+1)+" winner -> Player "+(scores[i]+1));
         }
 
         System.out.println("The winner of TARGET CARD GAME is ----- P L A Y E R    "+ mostWins(scores));
+        System.out.println("C O N G R A T U L A T I O N S ! ! ! ! ! !");
+        System.exit(0);
 
     }
 
