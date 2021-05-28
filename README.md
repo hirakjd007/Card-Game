@@ -1,6 +1,6 @@
 # Project Title
 
-Card Game for TARGET
+Card Game
 
 # Description
 
